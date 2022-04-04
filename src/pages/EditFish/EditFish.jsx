@@ -17,7 +17,7 @@ function EditFish(props) {
 
   const handleSubmit = evt => {
 		evt.preventDefault()
-    props.handleUpdatePuppy(formData)
+    props.handleUpdateFish(formData)
 	}
 
 	return (

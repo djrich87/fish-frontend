@@ -52,7 +52,6 @@ function App() {
         <Routes>
         <Route path='/add' element={<AddFish handleAddFish={handleAddFish}/>} />
         <Route path='/' element={<FishList fishes={fishes} handleDeleteFish={handleDeleteFish}/>} />
-        <Route path='/edit' element={<EditFish />} />
         <Route path='/edit' element={<EditFish handleUpdateFish={handleUpdateFish}/>} />
 				</Routes>
       </main>
