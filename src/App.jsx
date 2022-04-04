@@ -4,6 +4,7 @@ import './App.css'
 import AddFish from './pages/AddFish/AddFish'
 import FishList from './pages/FishList/FishList'
 import * as fishService from './services/fishes'
+import EditFish from './pages/EditFish/EditFish'
 
 function App() {
   const [fishes, setFishes] = useState([])
@@ -20,6 +21,24 @@ function App() {
     navigate('/')
   }
 
+  const handleDeleteFish = id => {
+    fishService.deleteOne(id)
+    .then(deletedFish => setFishes(fishes.filter(fish => fish._id !== deletedFish._id)))
+  }
+
+  const handleUpdateFish = updatedFishData => {
+    fishService.update(updatedFishData)
+    .then(updatedFish => {
+    const newFishesArray = fishes.map(fish => 
+      fish._id === updatedFishData._id ? updatedFishData : fish
+    )
+    setFishes(newFishesArray)
+		navigate('/')
+    })
+  }
+
+
+
   return (
     <div className="App">
       <header className="App-header">
@@ -32,7 +51,9 @@ function App() {
       <main>
         <Routes>
         <Route path='/add' element={<AddFish handleAddFish={handleAddFish}/>} />
-        <Route path='/' element={<FishList fishes={fishes}/>} />
+        <Route path='/' element={<FishList fishes={fishes} handleDeleteFish={handleDeleteFish}/>} />
+        <Route path='/edit' element={<EditFish />} />
+        <Route path='/edit' element={<EditFish handleUpdateFish={handleUpdateFish}/>} />
 				</Routes>
       </main>
     </div>
