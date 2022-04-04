@@ -1,6 +1,13 @@
 import { useState } from "react"
 
 function AddFish(props) {
+
+  const [formData, setFormData] =useState({
+    name: '',
+    breed: '',
+    age: 0
+  })
+
 	return (
 		<>
 			<h1>Add Fish</h1>
@@ -14,6 +21,7 @@ function AddFish(props) {
 						className="form-control"
 						id="name-input"
 						name="name"
+            value={formData.name}
 						required
 					/>
 				</div>
@@ -26,6 +34,7 @@ function AddFish(props) {
 						className="form-control"
 						id="breed-input"
 						name="breed"
+            value={formData.breed}
 						required
 					/>
 				</div>
@@ -38,6 +47,7 @@ function AddFish(props) {
 						className="form-control"
 						id="age-input"
 						name="age"
+            value={formData.age}
 					/>
 				</div>
 				<div className="d-grid">
