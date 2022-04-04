@@ -13,6 +13,7 @@ function FishCard({fish, randFishImgId, handleDeleteFish}) {
       <div className="card-body">
         <h2 className="card-text">{fish.name}</h2>
         <p className="card-text">A {fish.age}-year-old {fish.breed}</p>
+        <p className="card-text">- {fish.owner?.name ? fish.owner?.name : 'Some person'}'s fish</p>
       </div>
       <div className="card-footer">
       <Link
@@ -28,6 +29,12 @@ function FishCard({fish, randFishImgId, handleDeleteFish}) {
           Delete
         </button>
       </div>
+      :
+        <>
+          <div className="card-body">
+            <p className="card-text">- {fish.owner.name}'s fish</p>
+          </div>
+        </>
     </div>
   )
 }

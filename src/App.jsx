@@ -4,16 +4,22 @@ import './App.css'
 import AddFish from './pages/AddFish/AddFish'
 import FishList from './pages/FishList/FishList'
 import * as fishService from './services/fishes'
+import * as authService from './services/authService'
 import EditFish from './pages/EditFish/EditFish'
 
 function App() {
   const [fishes, setFishes] = useState([])
   const navigate = useNavigate()
+  const [user, setUser] = useState(authService.getUser())
+
 
   useEffect(() => {
+    if(user) {
     fishService.getAll()
     .then(allFishes => setFishes(allFishes))
-  }, [])
+    }
+  }, [user])
+  
 
   const handleAddFish = async newFishData => {
     const newFish = await fishService.create(newFishData)
@@ -51,7 +57,19 @@ function App() {
       <main>
         <Routes>
         <Route path='/add' element={<AddFish handleAddFish={handleAddFish}/>} />
-        <Route path='/' element={<FishList fishes={fishes} handleDeleteFish={handleDeleteFish}/>} />
+        <Route
+            path='/'
+            element={
+              user ?
+              <FishList
+                handleDeleteFish={handleDeleteFish}
+                fishes={fishes}
+                user={user} 
+              />
+              :
+              <Navigate to='/login' />
+            }
+          />
         <Route path='/edit' element={<EditFish handleUpdateFish={handleUpdateFish}/>} />
 				</Routes>
       </main>
